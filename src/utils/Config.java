@@ -12,6 +12,14 @@ import java.util.ArrayList;
  * @author migue
  */
 public class Config {
+    //Connection bbdd:
+    
+    public static String PATH;
+    public static String USER;
+    public static String PASS;
+    
+    //ParticularConfig
+    
     public static double thickness = 0.015;
     public static  ArrayList<Player> players = null;
     public static int nGames = 15;
