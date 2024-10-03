@@ -4,13 +4,18 @@
  */
 package dao.implementation;
 
-import com.sun.jdi.connect.spi.Connection;
 import dao.interfaces.PartidaDAO;
 import dao.pojo.Partida;
 import dao.variables.MyDate;
 import dao.variables.Nickname;
 import java.io.IOException;
 import java.util.ArrayList;
+import utils.Config;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -29,8 +34,8 @@ public class PartidaDAOImpl implements PartidaDAO, AutoCloseable{
     
     Connection con = null;
     
-    public PartidaDAOImpl(){
-//        con = DriverManager.getConnection(Config.PATH, Config.USER, Config.PASS);        
+    public PartidaDAOImpl() throws SQLException{
+        con = DriverManager.getConnection(Config.URL);
     }
 
     @Override
@@ -39,17 +44,17 @@ public class PartidaDAOImpl implements PartidaDAO, AutoCloseable{
     }
 
     @Override
-    public Partida getPartidaById(int idPartida) throws Exception {
+    public Partida getPartidaById(Object idPartidaObj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public ArrayList<Partida> getPartidasByFiltro(int idPartida, MyDate fecha, Nickname nickGanador) throws Exception {
+    public ArrayList<Partida> getPartidasByFiltro(Object idPartidaObj, MyDate fecha, Nickname nickGanador) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     @Override
-    public void close() throws IOException {
+    public void close() throws IOException, SQLException {
         con.close();
     }
     

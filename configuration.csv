@@ -1,0 +1,2 @@
+jdbc:sqlite:./bbdd.db
+org.sqlite.JDBC

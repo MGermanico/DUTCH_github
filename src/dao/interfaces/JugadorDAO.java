@@ -16,10 +16,10 @@ import java.util.ArrayList;
 public interface JugadorDAO {
     //getters
     public ArrayList<Jugador> getJugadores() throws Exception;
-    public Jugador            getJugadorById(String nickname) throws Exception;
+    public Jugador            getJugadorById(Nickname nickname) throws Exception;
     public ArrayList<Jugador> getJugadoresByFiltro(Nickname nickname, MyColor ultimoColor,
-            int numeroVictorias, int numeroPuntosTotales, int numeroPartidasJugadas) throws Exception;
+            Object numeroVictorias, Object numeroPuntosTotales, Object numeroPartidasJugadas) throws Exception;
     
     //redundant getters
-    public ArrayList<Jugador> getJugadoresByIdPartida(int idPartida) throws Exception;
+    public ArrayList<Jugador> getJugadoresByIdPartida(Object idPartida) throws Exception;
 }

@@ -4,8 +4,10 @@
  */
 package utils;
 
+import java.io.File;
 import table.Player;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -13,10 +15,22 @@ import java.util.ArrayList;
  */
 public class Config {
     //Connection bbdd:
+    private static String driver;
+    private static String url;
     
-    public static String PATH;
-    public static String USER;
-    public static String PASS;
+    static{
+        File configurationFile = new File("./configuration.csv");
+        try(Scanner scFile = new Scanner(configurationFile)){
+            url = scFile.nextLine();
+            driver = scFile.nextLine();
+        }catch(Exception ex){
+            System.out.println("Error al cargar el archivo de configuración");
+            System.exit(1);
+        }
+    }
+    public static final String DRIVER = driver;
+    
+    public static final String URL = url;
     
     //ParticularConfig
     

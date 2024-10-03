@@ -22,7 +22,7 @@ public class MyDate {
     }
 
     public void setStr(String str) throws InvalidFormatException {
-        if (!this.rightDate(str)) {
+        if (str != null && !this.rightDate(str)) {
             throw new InvalidFormatException("Fecha");
         }
         this.str = str;
@@ -30,5 +30,9 @@ public class MyDate {
     
     public boolean rightDate(String str){
         return str.matches("\\d{2}-\\d{2}-\\d{4}");
+    }
+    @Override
+    public String toString(){
+        return this.str;
     }
 }

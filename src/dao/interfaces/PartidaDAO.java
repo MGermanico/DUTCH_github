@@ -17,8 +17,8 @@ import java.util.ArrayList;
 public interface PartidaDAO {
     //getters
     public ArrayList<Partida> getPartidas() throws Exception;
-    public Partida            getPartidaById(int idPartida) throws Exception;
-    public ArrayList<Partida> getPartidasByFiltro(int idPartida, MyDate fecha, Nickname nickGanador) throws Exception; 
+    public Partida            getPartidaById(Object idPartida) throws Exception;
+    public ArrayList<Partida> getPartidasByFiltro(Object idPartida, MyDate fecha, Nickname nickGanador) throws Exception; 
     
     //redundant getters
 }

@@ -22,7 +22,7 @@ public class Nickname {
     }
 
     public void setStr(String str) throws InvalidFormatException {
-        if (!rightNickname(str)) {
+        if (str != null && !rightNickname(str)) {
             throw new InvalidFormatException("Nickname");
         }
         this.str = str;
@@ -31,5 +31,10 @@ public class Nickname {
     public boolean rightNickname(String str){
         int nameLength = str.length();
         return !(nameLength < 3 || nameLength > 20);
+    }
+    
+    @Override
+    public String toString(){
+        return this.str;
     }
 }

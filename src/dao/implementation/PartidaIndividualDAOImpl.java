@@ -4,12 +4,17 @@
  */
 package dao.implementation;
 
-import com.sun.jdi.connect.spi.Connection;
 import dao.interfaces.PartidaIndividualDAO;
 import dao.pojo.PartidaIndividual;
 import dao.variables.Nickname;
 import java.io.IOException;
 import java.util.ArrayList;
+import utils.Config;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -28,8 +33,8 @@ public class PartidaIndividualDAOImpl implements PartidaIndividualDAO, AutoClose
     
     Connection con = null;
     
-    public PartidaIndividualDAOImpl(){
-//        con = DriverManager.getConnection(Config.PATH, Config.USER, Config.PASS);        
+    public PartidaIndividualDAOImpl() throws SQLException{
+        con = DriverManager.getConnection(Config.URL);
     }
 
     @Override
@@ -38,22 +43,22 @@ public class PartidaIndividualDAOImpl implements PartidaIndividualDAO, AutoClose
     }
 
     @Override
-    public PartidaIndividual getPartidaById(int idPartida, Nickname nickname) throws Exception {
+    public PartidaIndividual getPartidaById(Object idPartidaObj, Nickname nickname) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public ArrayList<PartidaIndividual> getPartidasByFiltro(int idPartida, Nickname nickname) throws Exception {
+    public ArrayList<PartidaIndividual> getPartidasByFiltro(Object idPartidaObj, Nickname nickname) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public ArrayList<PartidaIndividual> getPartidasIndivByIdPartida(int idPartida) throws Exception {
+    public ArrayList<PartidaIndividual> getPartidasIndivByIdPartida(Object idPartidaObj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     @Override
-    public void close() throws IOException {
+    public void close() throws IOException, SQLException {
         con.close();
     }
 }

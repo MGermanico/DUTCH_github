@@ -63,5 +63,7 @@ public class Jugador {
         this.NumeroPartidasJugadas = NumeroPartidasJugadas;
     }
     
-    
+    public String toString(){
+        return ": " + this.getNickname() + " , " + this.getUltimoColor() + " , " + this.getNumeroVictorias() + " , " + this.getNumeroPuntosTotales() + " , " + this.getNumeroPartidasJugadas();
+    }
 }

@@ -15,10 +15,10 @@ import java.util.ArrayList;
 public interface RondaDAO {
     //getters
     public ArrayList<Ronda> getRondas() throws Exception;
-    public Ronda            getRondaById(int idPartida, Nickname nickname, int numero) throws Exception;
-    public ArrayList<Ronda> getRondaByFiltro(int idPartida, Nickname nickname,
-            int numero, int puntos, int puntosTotales) throws Exception;
+    public Ronda            getRondaById(Object idPartida, Nickname nickname, Object numero) throws Exception;
+    public ArrayList<Ronda> getRondaByFiltro(Object idPartida, Nickname nickname,
+            Object numero, Object puntos, Object puntosTotales) throws Exception;
     
     //redundant getters
-    public ArrayList<Ronda> getRondasByIdPartidaAndNickname(int idPartida, Nickname nickname) throws Exception;
+    public ArrayList<Ronda> getRondasByIdPartidaAndNickname(Object idPartida, Nickname nickname) throws Exception;
 }

@@ -22,7 +22,7 @@ public class MyColor {
     }
 
     public void setStr(String str) throws InvalidFormatException {
-        if (!this.rightColor(str)) {
+        if (str != null && !this.rightColor(str)) {
             throw new InvalidFormatException("Color");
         }
         this.str = str;
@@ -40,5 +40,9 @@ public class MyColor {
             }
         }
         return ret;
+    }
+    @Override
+    public String toString(){
+        return this.str;
     }
 }
