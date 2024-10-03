@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public interface RondaDAO {
     //getters
     public ArrayList<Ronda> getRondas() throws Exception;
-    public Ronda            getRondaById(Object idPartida, Nickname nickname, Object numero) throws Exception;
+    public Ronda            getRondaByWId(Object idPartida, Nickname nickname, Object numero) throws Exception;
     public ArrayList<Ronda> getRondaByFiltro(Object idPartida, Nickname nickname,
             Object numero, Object puntos, Object puntosTotales) throws Exception;
     

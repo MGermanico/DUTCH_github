@@ -5,7 +5,9 @@
 package dao.implementation;
 
 import dao.interfaces.RondaDAO;
+import dao.pojo.Partida;
 import dao.pojo.Ronda;
+import dao.variables.MyDate;
 import dao.variables.Nickname;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,13 +45,76 @@ public class RondaDAOImpl implements RondaDAO, AutoCloseable{
     }
 
     @Override
-    public Ronda getRondaById(Object idPartidaObj, Nickname nickname, Object numeroObj) throws Exception {
+    public Ronda getRondaByWId(Object idPartidaObj, Nickname nickname, Object numeroObj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public ArrayList<Ronda> getRondaByFiltro(Object idPartidaObj, Nickname nickname, Object numeroObj, Object puntosObj, Object puntosTotalesObj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int idPartida, numero, puntos, puntosTotales;
+        ArrayList<Ronda> list = new ArrayList<Ronda>();
+        String sql = "SELECT IdPartida, Nickname, Numero, Puntos, PuntosTotales "
+                + "FROM Ronda "
+                + "WHERE 1 = 1 ";
+        
+        if (idPartidaObj != null) {
+            sql += "AND IdPartida = ? ";
+        }
+        if (nickname != null) {
+            sql += "AND Nickname LIKE ? ";
+        }
+        if (numeroObj != null) {
+            sql += "AND Nickname = ? ";
+        }
+        if (puntosObj != null) {
+            sql += "AND Nickname = ? ";
+        }
+        if (puntosTotalesObj != null) {
+            sql += "AND Nickname = ? ";
+        }
+        System.out.println(sql);
+        int nFilter = 0;
+        ResultSet rs = null;
+        try(PreparedStatement pstm = con.prepareStatement(sql)){
+            if (idPartidaObj != null) {
+                nFilter++;
+                idPartida = (int)idPartidaObj;
+//                System.out.println(4 + "?   " + numeroPuntosTotales);
+                pstm.setInt(nFilter, idPartida);
+            }
+            if (nickname != null) {
+                nFilter++;
+//                System.out.println(2 + "?   " + ultimoColor.getStr());
+                pstm.setString(nFilter, nickname.getStr());
+            }
+            if (numeroObj != null) {
+                nFilter++;
+                numero = (int)numeroObj;
+//                System.out.println(4 + "?   " + numeroPuntosTotales);
+                pstm.setInt(nFilter, numero);
+            }
+            if (puntosObj != null) {
+                nFilter++;
+                puntos = (int)puntosObj;
+//                System.out.println(4 + "?   " + numeroPuntosTotales);
+                pstm.setInt(nFilter, puntos);
+            }
+            if (puntosTotalesObj != null) {
+                nFilter++;
+                puntosTotales = (int)puntosTotalesObj;
+//                System.out.println(4 + "?   " + numeroPuntosTotales);
+                pstm.setInt(nFilter, puntosTotales);
+            }
+            rs = pstm.executeQuery();
+            Ronda rondaActual;
+            while(rs.next()){
+                rondaActual = new Ronda(rs.getInt(1), new Nickname(rs.getString(2)), rs.getInt(3), rs.getInt(4), rs.getInt(5));
+                list.add(rondaActual);
+            }
+        }catch(Exception ex){
+            throw ex;
+        }
+        return list;
     }
 
     @Override

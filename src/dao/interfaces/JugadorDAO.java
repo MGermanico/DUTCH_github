@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public interface JugadorDAO {
     //getters
     public ArrayList<Jugador> getJugadores() throws Exception;
-    public Jugador            getJugadorById(Nickname nickname) throws Exception;
+    public Jugador            getJugadorByWId(Nickname nickname) throws Exception;
     public ArrayList<Jugador> getJugadoresByFiltro(Nickname nickname, MyColor ultimoColor,
             Object numeroVictorias, Object numeroPuntosTotales, Object numeroPartidasJugadas) throws Exception;
     

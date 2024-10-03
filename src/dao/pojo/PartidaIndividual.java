@@ -36,5 +36,7 @@ public class PartidaIndividual {
         this.nickname = nickname;
     }
     
-    
+    public String toString(){
+        return ": " + this.IdPartida + " , " + this.nickname;
+    }
 }

@@ -32,4 +32,5 @@ public abstract class Utils {
         label.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
         label.setVerticalAlignment((int) Component.CENTER_ALIGNMENT);
     }
+    
 }

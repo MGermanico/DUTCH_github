@@ -5,7 +5,9 @@
 package dao.implementation;
 
 import dao.interfaces.PartidaIndividualDAO;
+import dao.pojo.Jugador;
 import dao.pojo.PartidaIndividual;
+import dao.variables.MyColor;
 import dao.variables.Nickname;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,22 +41,63 @@ public class PartidaIndividualDAOImpl implements PartidaIndividualDAO, AutoClose
 
     @Override
     public ArrayList<PartidaIndividual> getPartidasIndividuales() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return getPartidasByFiltro(null, null);
     }
 
     @Override
-    public PartidaIndividual getPartidaById(Object idPartidaObj, Nickname nickname) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public PartidaIndividual getPartidaByWId(Object idPartidaObj, Nickname nickname) throws Exception {
+        ArrayList<PartidaIndividual> partidasIndividuales= this.getPartidasByFiltro(nickname, nickname);
+        if (!partidasIndividuales.isEmpty()) {
+            return partidasIndividuales.get(0);
+        }else{
+            return null;
+        }
     }
 
     @Override
     public ArrayList<PartidaIndividual> getPartidasByFiltro(Object idPartidaObj, Nickname nickname) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int idPartida;
+        ArrayList<PartidaIndividual> list = new ArrayList<PartidaIndividual>();
+        String sql = "SELECT IdPartida, Nickname "
+                + "FROM Partida_Individual "
+                + "WHERE 1 = 1 ";
+        
+        if (idPartidaObj != null) {
+            sql += "AND IdPartida = ? ";
+        }
+        if (nickname != null) {
+            sql += "AND Nickname like ? ";
+        }
+        System.out.println(sql);
+        int nFilter = 0;
+        ResultSet rs = null;
+        try(PreparedStatement pstm = con.prepareStatement(sql)){
+            if (idPartidaObj != null) {
+                nFilter++;
+                idPartida = (int)idPartidaObj;
+//                System.out.println(1 + "?   " + nickname.getStr());
+                pstm.setInt(nFilter, idPartida);
+            }
+            if (nickname != null) {
+                nFilter++;
+//                System.out.println(2 + "?   " + ultimoColor.getStr());
+                pstm.setString(nFilter, nickname.getStr());
+            }
+            rs = pstm.executeQuery();
+            PartidaIndividual partidaIndividual;
+            while(rs.next()){
+                partidaIndividual = new PartidaIndividual(rs.getInt(1), new Nickname(rs.getString(2)));
+                list.add(partidaIndividual);
+            }
+        }catch(Exception ex){
+            throw ex;
+        }
+        return list;
     }
 
     @Override
     public ArrayList<PartidaIndividual> getPartidasIndivByIdPartida(Object idPartidaObj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.getPartidasByFiltro(idPartidaObj, null);
     }
     
     @Override

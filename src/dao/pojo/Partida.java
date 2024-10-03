@@ -44,5 +44,7 @@ public class Partida {
         this.nickGanador = nickGanador;
     }
     
-    
+    public String toString(){
+        return ": " + this.idPartida + " , " + this.fecha + " , " + this.nickGanador;
+    }
 }

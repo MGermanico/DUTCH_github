@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public interface PartidaIndividualDAO {
     //getters
     public ArrayList<PartidaIndividual> getPartidasIndividuales() throws Exception;
-    public PartidaIndividual            getPartidaById(Object idPartida, Nickname nickname) throws Exception;
+    public PartidaIndividual            getPartidaByWId(Object idPartida, Nickname nickname) throws Exception;
     public ArrayList<PartidaIndividual> getPartidasByFiltro(Object idPartida, Nickname nickname) throws Exception;
     
     //redundant getters

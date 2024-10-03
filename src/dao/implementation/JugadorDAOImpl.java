@@ -44,9 +44,9 @@ public class JugadorDAOImpl implements JugadorDAO, AutoCloseable{
     }
 
     @Override
-    public Jugador getJugadorById(Nickname nickname) throws Exception {
+    public Jugador getJugadorByWId(Nickname nickname) throws Exception {
         ArrayList<Jugador> jugadores= this.getJugadoresByFiltro(nickname, null, null, null, null);;
-        if (jugadores.size() != 0) {
+        if (!jugadores.isEmpty()) {
             return jugadores.get(0);
         }else{
             return null;
