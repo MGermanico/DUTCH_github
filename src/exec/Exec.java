@@ -4,7 +4,7 @@
  */
 package exec;
 
-import dutch.Options;
+import dutch.optionsWindow.Options;
 import table.Player;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -16,8 +16,8 @@ import utils.Config;
  */
 public class Exec{
     public static void main(String[] args) {
-//        Options optionWindow = new Options();
-        presets();
+        Options optionWindow = new Options();
+//        presets();
         Dutch window = new Dutch();
         
     }
@@ -28,10 +28,10 @@ public class Exec{
         players.add(new Player("c", Color.blue));
         players.add(new Player("c", Color.blue));
         players.add(new Player("c", Color.blue));
-        players.add(new Player("c", Color.blue));
-        players.add(new Player("c", Color.blue));
-        players.add(new Player("c", Color.blue));
-        players.add(new Player("c", Color.blue));
+//        players.add(new Player("c", Color.blue));
+//        players.add(new Player("c", Color.blue));
+//        players.add(new Player("c", Color.blue));
+//        players.add(new Player("c", Color.blue));
 
         Config.players = players;
         Config.nGames = 15;

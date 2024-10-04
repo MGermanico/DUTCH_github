@@ -6,7 +6,10 @@ package utils;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Rectangle;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
@@ -32,5 +35,7 @@ public abstract class Utils {
         label.setHorizontalAlignment((int) Component.CENTER_ALIGNMENT);
         label.setVerticalAlignment((int) Component.CENTER_ALIGNMENT);
     }
-    
+    public static Icon resizeImageByPath(String path, int width, int height){
+        return (new ImageIcon((new ImageIcon(path)).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
+    }
 }

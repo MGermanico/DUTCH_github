@@ -5,7 +5,7 @@
 package exec;
 
 import dutch.DutchManager;
-import dutch.Options;
+import dutch.optionsWindow.Options;
 import table.Player;
 import graphic.Cell;
 import graphic.Graphic;
