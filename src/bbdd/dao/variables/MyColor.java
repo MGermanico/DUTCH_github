@@ -29,7 +29,8 @@ public class MyColor {
     }
     
     public boolean rightColor(String str){
-        boolean ret = str.matches("\\d{3},\\d{3},\\d{3}");
+//        System.out.println(str);
+        boolean ret = str.matches("\\d{1,3},\\d{1,3},\\d{1,3}");
         if(ret){
             String rgbArr[] = str.split(",");
             for (int i = 0; i < rgbArr.length; i++) {

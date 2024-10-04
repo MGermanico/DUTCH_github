@@ -4,6 +4,7 @@
  */
 package table;
 
+import bbdd.dao.pojo.Jugador;
 import dutch.DutchManager;
 import exec.Dutch;
 import graphic.Lane;
@@ -38,11 +39,11 @@ public class Table extends JPanel{
     JPanel grid = new JPanel();
     JScrollPane scrollPane;
     Box tableBox = Box.createHorizontalBox();
-    Map<Player, ArrayList<TableCell>> gameTable;
+    Map<Jugador, ArrayList<TableCell>> gameTable;
     
     public Table(int nGames, DutchManager parent){
         this.setBorder(BorderFactory.createLineBorder(Color.RED));
-        gameTable = new HashMap<Player, ArrayList<TableCell>>();
+        gameTable = new HashMap<Jugador, ArrayList<TableCell>>();
         this.managerParent = parent;
         grid.setLayout(new GridLayout(this.managerParent.parent.players.size(), nGames + 1));
         initTable(Config.nRoundsActived, parent.parent.box14.getBounds());
@@ -77,10 +78,10 @@ public class Table extends JPanel{
         
         Utils.setSize(grid, gridDimension);
         JLabel nameLabel;
-        for (Player player : this.managerParent.parent.players) {
+        for (Jugador player : this.managerParent.parent.players) {
             guyGame = new ArrayList<TableCell>();
             
-            nameLabel = new JLabel(player.name);
+            nameLabel = new JLabel(player.getName());
             Utils.centerLabel(nameLabel);
             grid.add(nameLabel);
             
@@ -122,10 +123,10 @@ public class Table extends JPanel{
         
         JLabel nameLabel;
         
-        for (Player player : gameTable.keySet()) {
+        for (Jugador player : gameTable.keySet()) {
              ArrayList<TableCell> row = gameTable.get(player);
-             nameLabel = new JLabel(player.name+ " (" + getSummedPoints(player) + ")");
-             nameLabel.setForeground(player.color);
+             nameLabel = new JLabel(player.getName()+ " (" + getSummedPoints(player) + ")");
+             nameLabel.setForeground(player.getColor());
              grid.add(nameLabel);
             for (TableCell cell : row) {
                 button = new JButton(cell.value + "");
@@ -153,7 +154,7 @@ public class Table extends JPanel{
         }
         
     }
-    public int getSummedPoints(Player player){
+    public int getSummedPoints(Jugador player){
         ArrayList<TableCell> gamesOfPlayer = gameTable.get(player);
         int total = 0;
         for (TableCell tableCell : gamesOfPlayer) {
@@ -167,7 +168,7 @@ public class Table extends JPanel{
         remakeLanes();
         this.managerParent.parent.updateComponents();
     }
-    private void buttonAction(TableCell cell, Player player){
+    private void buttonAction(TableCell cell, Jugador player){
         int points = -666;
         boolean isNumber = false;
         do {
@@ -183,8 +184,8 @@ public class Table extends JPanel{
         this.managerParent.parent.updateComponents();
     }
     
-    private void addNewLane(TableCell cell, Player player){
-        Map<Player, ArrayList<TableCell>> gameSummedTable = this.getSumTable();
+    private void addNewLane(TableCell cell, Jugador player){
+        Map<Jugador, ArrayList<TableCell>> gameSummedTable = this.getSumTable();
         
         ArrayList<TableCell> playerSummedGames = gameSummedTable.get(player);
         
@@ -202,7 +203,7 @@ public class Table extends JPanel{
         int actualValue = playerSummedCell.value;
         Position p2 = new Position(actualNGame, actualValue, false);
         
-        managerParent.parent.addLane(p1, p2, 2, player.color);
+        managerParent.parent.addLane(p1, p2, 2, player.getColor());
     }
     public void remakeLanes(){
         
@@ -214,14 +215,14 @@ public class Table extends JPanel{
         Position p1 = null;
         Position p2 = null;
         
-        Map<Player, ArrayList<TableCell>> gameSummedTable = this.getSumTable();
+        Map<Jugador, ArrayList<TableCell>> gameSummedTable = this.getSumTable();
                 
         TableCell beforeCell;
         TableCell actualCell;
         
         ArrayList<TableCell> playerSummedGames;
         Lane actualLane;
-        for (Player player : gameSummedTable.keySet()) {
+        for (Jugador player : gameSummedTable.keySet()) {
             playerSummedGames = gameSummedTable.get(player);
             for (int i = 1; i < Config.nRoundsActived + 1; i++) {
 //                System.out.println(i);
@@ -234,7 +235,7 @@ public class Table extends JPanel{
                 actualCell = playerSummedGames.get(i - 1);
                 p1 = new Position(i-1, beforeCell.value, false);
                 p2 = new Position(i, actualCell.value, false);
-                actualLane = new Lane(p1, p2, player.color);
+                actualLane = new Lane(p1, p2, player.getColor());
                 lanesToDo.add(actualLane);
             }
         }
@@ -242,12 +243,12 @@ public class Table extends JPanel{
 //        managerParent.showingGraphic.updateMode = ShowingGraphic.UPDATE_MODE_DELETE_NOTHING;
     }
     
-    public Map<Player, ArrayList<TableCell>> getSumTable(){
-        Map<Player, ArrayList<TableCell>> ret = new HashMap<Player, ArrayList<TableCell>>();
+    public Map<Jugador, ArrayList<TableCell>> getSumTable(){
+        Map<Jugador, ArrayList<TableCell>> ret = new HashMap<Jugador, ArrayList<TableCell>>();
         ArrayList<TableCell> guyGame;
         TableCell newCell;
         int total;
-        for (Player player : gameTable.keySet()) {
+        for (Jugador player : gameTable.keySet()) {
             guyGame = new ArrayList<TableCell>();
             total = 0;
             for (TableCell actualCell : gameTable.get(player)) {
@@ -264,7 +265,7 @@ public class Table extends JPanel{
     public void setGuyGame(String namePlayer, int index, int value){
         gameTable.get(namePlayer).set(index, new TableCell(index, value));
     }
-    public void addPtsToGuy(Player player, int index, int value){
+    public void addPtsToGuy(Jugador player, int index, int value){
         TableCell cell = this.gameTable.get(player).get(index - 1);
         cell.value = value;
         
@@ -272,14 +273,14 @@ public class Table extends JPanel{
     
     public void showTableOnLogger(){
         System.out.println("showTableOnLogger(DutchManager): ");
-        for (Player player : this.managerParent.parent.players) {
+        for (Jugador player : this.managerParent.parent.players) {
             System.out.print("\t" + player + " : " + gameTable.get(player) + "\n");
         }
     }
     public void showSumTableOnLogger(){
         System.out.println("showSumTableOnLogger(DutchManager): ");
-        Map<Player, ArrayList<TableCell>> summedGameTable = this.getSumTable();
-        for (Player player : this.managerParent.parent.players) {
+        Map<Jugador, ArrayList<TableCell>> summedGameTable = this.getSumTable();
+        for (Jugador player : this.managerParent.parent.players) {
             System.out.print("\t" + player + " : " + summedGameTable.get(player) + "\n");
         }
     }
@@ -293,9 +294,9 @@ public class Table extends JPanel{
         int actualValue;
         int max = Integer.MIN_VALUE;
         
-        Map<Player, ArrayList<TableCell>> gameSummedTable = this.getSumTable();
+        Map<Jugador, ArrayList<TableCell>> gameSummedTable = this.getSumTable();
         
-        for (Player player : gameSummedTable.keySet()) {
+        for (Jugador player : gameSummedTable.keySet()) {
             for (TableCell tableCell : gameSummedTable.get(player)) {
                 actualValue = tableCell.value;
                 if (actualValue > max) {

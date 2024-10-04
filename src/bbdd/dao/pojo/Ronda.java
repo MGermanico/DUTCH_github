@@ -6,6 +6,7 @@ package bbdd.dao.pojo;
 
 import bbdd.dao.variables.Nickname;
 import exceptions.InvalidFormatException;
+import utils.StringUtils;
 
 /**
  *
@@ -68,6 +69,8 @@ public class Ronda {
     
     @Override
     public String toString(){
-        return ":Ronda: " + this.IdPartida + " , " + this.nickname  + " , " + this.numero  + " , " + this.puntos + " , " + this.puntosTotales;
+        return ":Ronda: " + 
+                StringUtils.setLong(this.IdPartida+"", 4, false) + " , " + 
+                StringUtils.setLong(this.nickname.toString(), 25, false)  + " , " + this.numero  + " , " + this.puntos + " , " + this.puntosTotales;
     }
 }

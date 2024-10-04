@@ -7,6 +7,10 @@ package bbdd.dao.pojo;
 import bbdd.dao.variables.MyColor;
 import bbdd.dao.variables.Nickname;
 import exceptions.InvalidFormatException;
+import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import utils.StringUtils;
 
 /**
  *
@@ -63,8 +67,37 @@ public class Jugador {
         this.NumeroPartidasJugadas = NumeroPartidasJugadas;
     }
     
+    public void setName(String name) throws InvalidFormatException{
+        this.setNickname(new Nickname(name));
+    }
+            
+    public String getName(){
+        return this.getNickname().getStr();
+    }
+    
+    public void setColor(Color color){
+        int r = color.getRed();
+        int g = color.getGreen();
+        int b = color.getBlue();
+        try {
+            this.setUltimoColor(new MyColor(r + "," + g + "," + b));
+        } catch (InvalidFormatException ex) {
+            Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public Color getColor(){
+        String rgb[] = this.getUltimoColor().getStr().split(",");
+        return new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
+    }
+    
     @Override
     public String toString(){
-        return ":Jugador: " + this.getNickname() + " , " + this.getUltimoColor() + " , " + this.getNumeroVictorias() + " , " + this.getNumeroPuntosTotales() + " , " + this.getNumeroPartidasJugadas();
+        return ":Jugador: " + 
+                StringUtils.setLong(this.getNickname().toString(), 25, true) + " , " +
+                StringUtils.setLong(this.getUltimoColor().getStr(), 12, true) + " , " + 
+                StringUtils.setLong(this.getNumeroVictorias() + "", 4, true) + " , " + 
+                StringUtils.setLong(this.getNumeroPuntosTotales()+"", 4, true) + " , " + 
+                StringUtils.setLong(this.getNumeroPartidasJugadas() + "", 4, true);
     }
 }

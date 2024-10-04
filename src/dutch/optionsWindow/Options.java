@@ -5,7 +5,9 @@
 package dutch.optionsWindow;
 
 import bbdd.dao.pojo.Jugador;
-import table.Player;
+import bbdd.dao.variables.MyColor;
+import bbdd.dao.variables.Nickname;
+import exceptions.InvalidFormatException;
 import utils.Utils;
 
 import java.awt.Color;
@@ -48,7 +50,7 @@ public class Options extends JDialog{
     int nGames = 15;
     JSpinner gamesCounterSpinner = new JSpinner();
     
-    ArrayList<Player> players;
+    ArrayList<Jugador> players;
     
     Dimension box1Dimension = new Dimension(300, 300);
     Box box1 = Box.createVerticalBox();
@@ -120,9 +122,9 @@ public class Options extends JDialog{
 
                 Dimension textDimension = new Dimension(150, 30);
                 
-                for (Player player : players) {
+                for (Jugador player : players) {
                     Box Box12X = Box.createHorizontalBox();
-                    JLabel playerLabel = new JLabel(player.name, SwingConstants.CENTER);
+                    JLabel playerLabel = new JLabel(player.getName(), SwingConstants.CENTER);
                     playerLabel.setSize(textDimension);
                     playerLabel.setMinimumSize(textDimension);
                     playerLabel.setPreferredSize(textDimension);
@@ -131,7 +133,8 @@ public class Options extends JDialog{
                     
                     JButton changeColor = new JButton();
                     Utils.setSize(changeColor, new Dimension(15, 15));
-                    changeColor.setBackground(player.color);
+                    System.out.println(player);
+                    changeColor.setBackground(player.getColor());
                     changeColor.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -146,7 +149,7 @@ public class Options extends JDialog{
                 Box horizontalBox = Box.createHorizontalBox();
 
                     JButton addButton = new JButton();
-                    addButton.setIcon(Utils.resizeImageByPath("./src/data/img/anyadir.png", 105, 35));
+                    addButton.setIcon(Utils.resizeImageByPath("./src/data/img/anyadir.png", 85, 25));
                     addButton.setBackground(Color.WHITE);
                     addButton.setBorder(null);
                     addButton.addActionListener(new ActionListener() {
@@ -206,8 +209,8 @@ public class Options extends JDialog{
         update();
         this.setVisible(true);
     }
-    private void changeColor(Player player){
-        player.color = JColorChooser.showDialog(this, "Elige un color", player.color, false);
+    private void changeColor(Jugador player){
+        player.setColor( JColorChooser.showDialog(this, "Elige un color", player.getColor(), false) );
         refresh();
     }
     public void addPlayer(){
@@ -224,12 +227,12 @@ public class Options extends JDialog{
             closeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setPlayer(null);
+                setPlayer("");
             }
             });
 
             JTextField textField = new JTextField();
-            Utils.setSize(textField, new Dimension(165, 35));
+            Utils.setSize(textField, new Dimension(165, 25));
             textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -247,6 +250,9 @@ public class Options extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Jugador jugador = getPlayer();
+                if (jugador != null) {
+                    setPlayer(jugador);
+                }
             }
             });
             
@@ -277,7 +283,9 @@ public class Options extends JDialog{
     }
     public Jugador getPlayer(){
         try {
-            GetJugadorDialog gjd = new GetJugadorDialog(this);
+            GetJugadorDialog gjd = new GetJugadorDialog(this, box12.getComponentCount());
+            Jugador jugador = gjd.jugadorSelected;
+            return jugador;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -285,11 +293,21 @@ public class Options extends JDialog{
     }
     public void setPlayer(String name){
         if (name != null && !name.equals("")) {
-            players.add(new Player(name, new Color((int)randomizer(0d, 255d), (int)randomizer(0d, 255d), (int)randomizer(0d, 255d))));
+            try {
+                Jugador j = new Jugador(new Nickname(name));
+                j.setColor(new Color((int)randomizer(0d, 255d), (int)randomizer(0d, 255d), (int)randomizer(0d, 255d)));
+                setPlayer(j);
+            } catch (InvalidFormatException ex) {
+                Logger.getLogger(Options.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if (players.size() >= 6) {
                 addSize(box1Dimension, 0, 30);
             }
         }
+        refresh();
+    }
+    public void setPlayer(Jugador jugador){
+        players.add(jugador);
         refresh();
     }
     public void refresh(){
@@ -305,9 +323,9 @@ public class Options extends JDialog{
         update();
     }
     public void setColorToPlayer(Color color, String name){
-        for (Player player : players) {
-            if (player.name.equals(name)) {
-                player.color = color;
+        for (Jugador player : players) {
+            if (player.getName().equals(name)) {
+                player.setColor(color);
             }
         }
     }

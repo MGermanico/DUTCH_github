@@ -4,8 +4,8 @@
  */
 package utils;
 
+import bbdd.dao.pojo.Jugador;
 import java.io.File;
-import table.Player;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,7 +35,7 @@ public class Config {
     //ParticularConfig
     
     public static double thickness = 0.015;
-    public static  ArrayList<Player> players = null;
+    public static  ArrayList<Jugador> players = null;
     public static int nGames = 15;
     public static int nRoundsActived = 1;
     public static int tableSizeAdder = 0;

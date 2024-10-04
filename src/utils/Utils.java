@@ -38,4 +38,5 @@ public abstract class Utils {
     public static Icon resizeImageByPath(String path, int width, int height){
         return (new ImageIcon((new ImageIcon(path)).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
     }
+    
 }

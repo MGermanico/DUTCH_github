@@ -5,7 +5,6 @@
 package exec;
 
 import dutch.DutchManager;
-import table.Player;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +13,7 @@ import java.util.ArrayList;
  */
 public class TestDutch {
     public static void main(String[] args) {
-        ArrayList<Player> players = new ArrayList<Player>();
+//        ArrayList<Player> players = new ArrayList<Player>();
 //        players.add("Miguel");
 //        players.add("Ingrid");
 //        players.add("David");

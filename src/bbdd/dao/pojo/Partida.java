@@ -6,6 +6,7 @@ package bbdd.dao.pojo;
 
 import bbdd.dao.variables.MyDate;
 import bbdd.dao.variables.Nickname;
+import utils.StringUtils;
 
 /**
  *
@@ -45,6 +46,9 @@ public class Partida {
     }
     
     public String toString(){
-        return ":Partida: " + this.idPartida + " , " + this.fecha + " , " + this.nickGanador;
+        return ":Partida: " + 
+                StringUtils.setLong(this.idPartida+"", 4, true) + " , " + 
+                StringUtils.setLong(this.fecha+"", 8, true) + " , " + 
+                StringUtils.setLong(this.nickGanador.toString(), 25, true);
     }
 }

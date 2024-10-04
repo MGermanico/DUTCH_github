@@ -4,9 +4,9 @@
  */
 package exec;
 
+import bbdd.dao.pojo.Jugador;
 import dutch.DutchManager;
 import dutch.optionsWindow.Options;
-import table.Player;
 import graphic.Cell;
 import graphic.Graphic;
 import graphic.Lane;
@@ -46,7 +46,7 @@ public class Dutch extends JFrame{
     
     DutchManager dutchManager;
     
-    public ArrayList<Player> players;
+    public ArrayList<Jugador> players;
     
     public ShowingGraphic showingGraphic;
     

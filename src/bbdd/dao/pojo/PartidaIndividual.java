@@ -6,6 +6,7 @@ package bbdd.dao.pojo;
 
 import bbdd.dao.variables.Nickname;
 import exceptions.InvalidFormatException;
+import utils.StringUtils;
 
 /**
  *
@@ -37,6 +38,8 @@ public class PartidaIndividual {
     }
     
     public String toString(){
-        return ":PartidaIndiv: " + this.IdPartida + " , " + this.nickname;
+        return ":PartidaIndiv: " + 
+                StringUtils.setLong(this.IdPartida+"", 4, true) + " , " + 
+                StringUtils.setLong(this.nickname.toString(), 4, true);
     }
 }

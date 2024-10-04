@@ -5,7 +5,6 @@
 package exec;
 
 import dutch.DutchManager;
-import table.Player;
 import graphic.Position;
 import graphic.ShowingGraphic;
 import java.awt.Color;
@@ -73,7 +72,7 @@ public class TestExec {
         });
     }
     private static void dutchInit(){
-        ArrayList<Player> players = new ArrayList<Player>();
+//        ArrayList<Player> players = new ArrayList<Player>();
 //        players.add("Miguel");
 //        players.add("Ingrid");
 //        players.add("David");
