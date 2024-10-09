@@ -84,9 +84,6 @@ public class Dutch extends JFrame{
         });
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        ReadCommands rc = new ReadCommands(this);
-        rc.start();
-        
         scm = new SizeComprobator(width, height, this);
         scm.start();
         
@@ -95,6 +92,9 @@ public class Dutch extends JFrame{
         createBackGroundGrid();
         
         setyxSize(1, 1);
+        
+        ReadCommands rc = new ReadCommands(this);
+        rc.start();
         
 //        test();
     }

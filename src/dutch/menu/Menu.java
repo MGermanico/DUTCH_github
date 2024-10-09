@@ -44,6 +44,7 @@ public class Menu extends JFrame implements Runnable{
     }
     
     public static final int DEFAULT_MENU = 1;
+    public static final int LOG_MENU = 2;
     
     public MenuManager manager = new MenuManager(this);
     
@@ -64,7 +65,7 @@ public class Menu extends JFrame implements Runnable{
             height);
         this.setLayout(new GridBagLayout());
         
-        setUp(1);
+        setUp(Menu.DEFAULT_MENU);
         
         this.setVisible(true);
     }
@@ -75,7 +76,7 @@ public class Menu extends JFrame implements Runnable{
         if (type == DEFAULT_MENU) {
             DefaultMenu dm = new DefaultMenu(this);
             back.add(dm);
-        }else{
+        }else if (type == LOG_MENU){
             LogMenu lm = new LogMenu(this);
             back.add(lm);
         }

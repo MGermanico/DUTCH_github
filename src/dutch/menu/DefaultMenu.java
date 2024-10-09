@@ -46,7 +46,7 @@ public class DefaultMenu extends JPanel{
     }
     
     public void seeLogAction(){
-        owner.setUp(2);
+        owner.setUp(Menu.LOG_MENU);
     }
     
     public void startGameAction(){

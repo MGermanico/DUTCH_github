@@ -31,6 +31,12 @@ public class Graphic {
 //        Graphic(x, y, 400, 200, 1);
 //    }
     public Graphic(int y, int x, int columnSize, int rowSize, int imageSizeFactor){
+        if (rowSize <= 0) {
+            rowSize = 1;
+        }
+        if (columnSize <= 0) {
+            columnSize = 1;
+        }
         this.columnSize = columnSize;
         this.rowSize = rowSize;
         graph = new Cell[columnSize][rowSize];
