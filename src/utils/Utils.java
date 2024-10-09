@@ -4,6 +4,7 @@
  */
 package utils;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -38,5 +39,7 @@ public abstract class Utils {
     public static Icon resizeImageByPath(String path, int width, int height){
         return (new ImageIcon((new ImageIcon(path)).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
     }
-    
+    public static Color getRandomColor(){
+        return new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255));
+    }
 }

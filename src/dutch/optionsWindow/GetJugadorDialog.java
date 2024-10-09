@@ -27,7 +27,7 @@ public class GetJugadorDialog extends JDialog{
     int numberOfPlayer;
     Jugador jugadorSelected = null;
     
-    public GetJugadorDialog(JDialog owner, int numberOfPlayer) throws Exception{
+    public GetJugadorDialog(Options owner, int numberOfPlayer) throws Exception{
         super(owner, true);
         this.numberOfPlayer = numberOfPlayer;
 //        this.setSize(400, 400);
@@ -49,6 +49,7 @@ public class GetJugadorDialog extends JDialog{
         JLabel actualName;
         JButton actualSelectButton;
         Box actualHorizontalBox;
+        deleteUsedPlayers(jugadores);
         int maxWidth = 1;
         for (Jugador jugador : jugadores) {
             String name = jugador.getNickname().toString();
@@ -82,6 +83,22 @@ public class GetJugadorDialog extends JDialog{
             
             verticalBox.add(actualHorizontalBox);
         }
-        this.setBounds(this.getOwner().getX() + 325, this.getOwner().getY() + 5 + this.numberOfPlayer*30, maxWidth*24 + 100, jugadores.size()*52);
+        this.setBounds(this.getOwner().getX() + 325, this.getOwner().getY() + 5 + this.numberOfPlayer*30, maxWidth*24 + 100, jugadores.size()*34 + 50);
+    }
+    public void deleteUsedPlayers(ArrayList<Jugador> players){
+        ArrayList<Jugador> playersTmp = new ArrayList<>();
+        for (Jugador player : players) {
+            System.out.println("-.----" + player);
+            
+            if (!((Options)this.getOwner()).isAlreadyOnList(player)) {
+                System.out.println("siiiiiiii");
+                playersTmp.add(player);
+            }
+        }
+        players.clear();
+        for (Jugador player : playersTmp) {
+            players.add(player);
+        }
+        players = playersTmp;
     }
 }

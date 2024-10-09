@@ -3,8 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/GIT/Repositorios/DUTCH_github/src/dutch/optionsWindow/Options.java</file>
-            <file>file:/D:/GIT/Repositorios/DUTCH_github/src/dutch/optionsWindow/GetJugadorDialog.java</file>
+            <file>file:/D:/GIT/Repositorios/DUTCH_github/src/dutch/menu/DefaultMenu.java</file>
+            <file>file:/D:/GIT/Repositorios/DUTCH_github/src/dutch/menu/MenuManager.java</file>
+            <file>file:/D:/GIT/Repositorios/DUTCH_github/src/dutch/menu/LogMenu.java</file>
+            <file>file:/D:/GIT/Repositorios/DUTCH_github/src/exec/Exec.java</file>
+            <file>file:/D:/GIT/Repositorios/DUTCH_github/src/dutch/menu/Menu.java</file>
         </group>
     </open-files>
 </project-private>

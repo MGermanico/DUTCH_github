@@ -6,8 +6,12 @@ package bbdd.biz;
 
 import bbdd.dao.implementation.JugadorDAOImpl;
 import bbdd.dao.pojo.Jugador;
+import bbdd.dao.variables.Nickname;
+import exceptions.InvalidFormatException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,5 +22,16 @@ public class DataBaseManager {
         JugadorDAOImpl jdi = new JugadorDAOImpl();
         ArrayList<Jugador> jugadores = jdi.getJugadores();
         return jugadores;
+    }
+    public Jugador getJugadorByName(String str) throws SQLException, Exception{
+        System.out.println("si");
+        JugadorDAOImpl jdi = new JugadorDAOImpl();
+        Jugador jugador = null;
+        try {
+            jugador = jdi.getJugadorByWId(new Nickname(str));
+        } catch (InvalidFormatException ex) {
+            ex.printStackTrace();
+        }
+        return jugador;
     }
 }

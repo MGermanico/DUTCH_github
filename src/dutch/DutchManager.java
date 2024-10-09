@@ -4,9 +4,8 @@
  */
 package dutch;
 
-import table.Table;
-import graphic.GraphicHeightManager;
-import exec.Dutch;
+import dutch.back.table.Table;
+import dutch.back.graphic.GraphicHeightManager;
 import javax.swing.JSpinner;
 import utils.Config;
 
@@ -26,15 +25,13 @@ public class DutchManager {
         table = new Table(nGames, this);
         graphicHeightManager = new GraphicHeightManager(this);
     }
-    
     public void refreshXYGraphicSize(){
 //        System.out.println("siiiiiiiii");novabien
-        int xSize = table.getMaxValue()+Config.graphicyAdderSize;
-        if (xSize < 1) {
-            xSize = 1;
+        System.out.println(table.getMaxValue());
+        int ySize = table.getMaxValue() + 1;
+        if (ySize < 1) {
+            ySize = 1;
         }
-        graphicHeightManager.refreshYSize();
-        parent.setxSize(xSize);
-        parent.setySize(Config.nRoundsActived+Config.graphicxAdderSize);
+        parent.setyxSize(Config.nRoundsActived+Config.graphicxAdderSize, ySize);
     }
 }

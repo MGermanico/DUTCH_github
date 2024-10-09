@@ -4,9 +4,11 @@
  */
 package dutch.optionsWindow;
 
+import bbdd.biz.DataBaseManager;
 import bbdd.dao.pojo.Jugador;
 import bbdd.dao.variables.MyColor;
 import bbdd.dao.variables.Nickname;
+import dutch.menu.MenuManager;
 import exceptions.InvalidFormatException;
 import utils.Utils;
 
@@ -43,7 +45,10 @@ import static utils.Utils.randomizer;
  * @author migue
  */
 public class Options extends JDialog{
-    public Options(){
+    MenuManager menuManager;
+    
+    public Options(MenuManager mm){
+        this.menuManager = mm;
         init();
     }
     
@@ -71,14 +76,12 @@ public class Options extends JDialog{
         this.setModal(true);
         int width = 600;
         int height = 500;
-        this.setBounds(
-                (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2 - width/2),
-                (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2 - height/2),
-                width,
-                height);
+        this.setBounds(0,0,width,height);
+        this.setLocation(menuManager.owner.getLocation());
+        this.setResizable(false);
 //        this.setSize(600, 500);
 //        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-        this.setUndecorated(true);
+//        this.setUndecorated(true);
         initOptionWindow();
     }
     private void initBoxes(){
@@ -134,6 +137,9 @@ public class Options extends JDialog{
                     JButton changeColor = new JButton();
                     Utils.setSize(changeColor, new Dimension(15, 15));
                     System.out.println(player);
+                    if(player.getUltimoColor().getStr() == null){
+                        player.setColor(Utils.getRandomColor());
+                    }
                     changeColor.setBackground(player.getColor());
                     changeColor.addActionListener(new ActionListener() {
                         @Override
@@ -294,10 +300,16 @@ public class Options extends JDialog{
     public void setPlayer(String name){
         if (name != null && !name.equals("")) {
             try {
-                Jugador j = new Jugador(new Nickname(name));
-                j.setColor(new Color((int)randomizer(0d, 255d), (int)randomizer(0d, 255d), (int)randomizer(0d, 255d)));
+                DataBaseManager dbm = new DataBaseManager();
+                Jugador j = dbm.getJugadorByName(name);
+                if(j == null){
+                    j = new Jugador(new Nickname(name));
+                    j.setColor(new Color((int)randomizer(0d, 255d), (int)randomizer(0d, 255d), (int)randomizer(0d, 255d)));
+                }
                 setPlayer(j);
             } catch (InvalidFormatException ex) {
+                Logger.getLogger(Options.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(Options.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (players.size() >= 6) {
@@ -307,7 +319,9 @@ public class Options extends JDialog{
         refresh();
     }
     public void setPlayer(Jugador jugador){
-        players.add(jugador);
+        if (!isAlreadyOnList(jugador)) {
+            players.add(jugador);
+        }
         refresh();
     }
     public void refresh(){
@@ -343,5 +357,13 @@ public class Options extends JDialog{
         Config.players = players;
         Config.nGames = (int) this.gamesCounterSpinner.getValue();
         this.dispose();
+    }
+    public boolean isAlreadyOnList(Jugador j){
+        for (Jugador player : players) {
+            if (player.getName().equals(j.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
